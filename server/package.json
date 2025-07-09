@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Fastify backend for test-task",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --watch src --ext js,ts src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "Andrey_Ruts",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/cors": "^11.0.1",
+    "@fastify/sensible": "^6.0.3",
+    "@fastify/websocket": "^11.1.0",
+    "dotenv": "^17.1.0",
+    "fastify": "^5.4.0",
+    "fastify-plugin": "^5.0.1",
+    "joi": "^17.13.3",
+    "mongoose": "^8.16.2",
+    "openai": "^5.8.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
