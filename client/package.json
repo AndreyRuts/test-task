@@ -11,17 +11,21 @@
   "dependencies": {
     "@iconify/react": "^6.0.0",
     "@nextui-org/react": "^2.6.11",
+    "@tailwindcss/postcss": "^4.1.11",
     "lottie-react": "^2.4.1",
     "next": "15.3.5",
-    "react": "^19.0.0",
-    "react-audio-visualize": "^1.2.0",
-    "react-dom": "^19.0.0"
+    "postcss": "^8.5.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-voice-visualizer": "^2.0.8",
+    "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "autoprefixer": "^10.4.21",
     "eslint": "^9",
     "eslint-config-next": "15.3.5",
     "typescript": "^5"
