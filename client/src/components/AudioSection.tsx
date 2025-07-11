@@ -1,62 +1,33 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import MicButton from "@/components/MicButton";
-import CustomVisualizer from "@/components/CustomVisualizer";
-
-import { useVoiceVisualizer, VoiceVisualizer } from "react-voice-visualizer";
+import { SoundVisualizer } from "./SoundVisualizer";
 
 const AudioSection = () => {
-  const [stream, setStream] = useState<MediaStream | null>(null);
+  const [isRecording, setIsRecording] = useState(false);
 
-  const recorderControls = useVoiceVisualizer();
-  const {
-    // ... (Extracted controls and states, if necessary)
-    recordedBlob,
-    error,
-  } = recorderControls;
-
-  // Get the recorded audio blob
-  useEffect(() => {
-    if (!recordedBlob) return;
-
-    console.log(recordedBlob);
-  }, [recordedBlob]);
-
-  // Get the error when it occurs
-  useEffect(() => {
-    if (!error) return;
-
-    console.error(error);
-  }, [error]);
-
-  const toggle = async () => {
-    if (stream) {
-      stream.getTracks().forEach((t) => t.stop());
-      setStream(null);
-    } else {
-      try {
-        const micStream = await navigator.mediaDevices.getUserMedia({
-          audio: true,
-        });
-        setStream(micStream);
-      } catch (err) {
-        console.error("🎤 Ошибка доступа к микрофону:", err);
-      }
-    }
+  const toggleRecording = () => {
+    setIsRecording((prev) => !prev);
   };
-
-  const isRecording = Boolean(stream);
 
   return (
     <>
-      <div className="text-2xl">Tailwind работает!</div>
-      <div className="flex flex-col items-center gap-6 p-6">
-        <MicButton isRecording={isRecording} onClick={toggle} />
+      <div className="flex flex-col items-center justify-center gap-6 p-6 h-[313px] bg-[#171717] w-[552px] rounded-2xl">
+        <div className="h-[60px]">
+          <SoundVisualizer isActive={isRecording} />
+        </div>
 
-        {stream && <CustomVisualizer stream={stream} />}
+        <MicButton isRecording={isRecording} onClick={toggleRecording} />
+
+        <button
+          onClick={toggleRecording}
+          className={`mt-4 px-6 py-2 h-10 w-44 rounded-full font-semibold text-white transition-colors duration-300
+      ${isRecording ? "bg-[#a21649]" : "bg-[#612AD8]"}`}
+        >
+          {isRecording ? "End conversation" : "Start conversation"}
+        </button>
       </div>
-      <VoiceVisualizer controls={recorderControls} />
     </>
   );
 };

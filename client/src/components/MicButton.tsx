@@ -19,20 +19,22 @@ const MicButton: React.FC<MicButtonProps> = ({ isRecording, onClick }) => {
   }, [isRecording]);
 
   return (
-    <div
-      className={`rounded-full p-4 cursor-pointer transition-colors duration-300 ${
-        isRecording ? "bg-purple-600" : "bg-gray-300"
-      }`}
+    // <div
+    //   className={`rounded-full p-4 cursor-pointer transition-colors duration-300 ${
+    //     isRecording ? "bg-red-600" : "bg-purple-600"
+    //   }`}
+    //   onClick={onClick}
+    // >
+
+    // </div>
+    <Lottie
+      lottieRef={lottieRef}
+      animationData={voiceAnimation}
+      loop
+      autoplay={false}
+      style={{ width: 120, height: 120 }}
       onClick={onClick}
-    >
-      <Lottie
-        lottieRef={lottieRef}
-        animationData={voiceAnimation}
-        loop
-        autoplay={false}
-        style={{ width: 80, height: 80 }}
-      />
-    </div>
+    />
   );
 };
 
