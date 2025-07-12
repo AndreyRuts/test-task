@@ -1,41 +1,51 @@
 "use client";
 
 import React from "react";
-import {Button, Input, Link, Tooltip} from "@nextui-org/react";
-import {AnimatePresence, domAnimation, LazyMotion, m} from "framer-motion";
-import {Icon} from "@iconify/react";
+import { Button, Input, Link, Tooltip } from "@nextui-org/react";
+import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
+import { Icon } from "@iconify/react";
+import toast from "react-hot-toast";
+import { AxiosError } from "axios";
+import { signUpUser } from "@/lib/api/auth/signup";
 
 export default function Component() {
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
-  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = React.useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+    React.useState(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [[page, direction], setPage] = React.useState([0, 0]);
   const [isEmailValid, setIsEmailValid] = React.useState(true);
   const [isPasswordValid, setIsPasswordValid] = React.useState(true);
-  const [isConfirmPasswordValid, setIsConfirmPasswordValid] = React.useState(true);
+  const [isConfirmPasswordValid, setIsConfirmPasswordValid] =
+    React.useState(true);
 
-  const togglePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
+  const togglePasswordVisibility = () =>
+    setIsPasswordVisible(!isPasswordVisible);
   const toggleConfirmPasswordVisibility = () =>
     setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
 
   const Title = React.useCallback(
     (props: React.PropsWithChildren<{}>) => (
       <m.h1
-        animate={{opacity: 1, x: 0}}
+        animate={{ opacity: 1, x: 0 }}
         className="text-xl font-medium"
-        exit={{opacity: 0, x: -10}}
-        initial={{opacity: 0, x: -10}}
+        exit={{ opacity: 0, x: -10 }}
+        initial={{ opacity: 0, x: -10 }}
       >
         {props.children}
       </m.h1>
     ),
-    [page],
+    [page]
   );
 
   const titleContent = React.useMemo(() => {
-    return page === 0 ? "Sign Up" : page === 1 ? "Enter Password" : "Confirm Password";
+    return page === 0
+      ? "Sign Up"
+      : page === 1
+      ? "Enter Password"
+      : "Confirm Password";
   }, [page]);
 
   const variants = {
@@ -79,14 +89,33 @@ export default function Component() {
     paginate(1);
   };
 
-  const handleConfirmPasswordSubmit = () => {
+  const handleConfirmPasswordSubmit = async () => {
     if (!confirmPassword.length || confirmPassword !== password) {
       setIsConfirmPasswordValid(false);
-
       return;
     }
     setIsConfirmPasswordValid(true);
-    // Submit logic or API call here
+    try {
+      toast.dismiss();
+      toast.loading("Creating account...", { id: "register" });
+
+      const res = await signUpUser({ email, password });
+
+      toast.success(res.message || "Registration successful!", {
+        id: "register",
+      });
+
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+      setPage([0, 0]);
+    } catch (error) {
+      toast.dismiss();
+      const axiosError = error as AxiosError<{ message?: string }>;
+      toast.error(axiosError.response?.data?.message || "Registration failed", {
+        id: "register",
+      });
+    }
     console.log(`Email: ${email}, Password: ${password}`);
   };
 
@@ -115,12 +144,17 @@ export default function Component() {
             <AnimatePresence initial={false} mode="popLayout">
               {page >= 1 && (
                 <m.div
-                  animate={{opacity: 1, x: 0}}
-                  exit={{opacity: 0, x: -10}}
-                  initial={{opacity: 0, x: -10}}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                  initial={{ opacity: 0, x: -10 }}
                 >
                   <Tooltip content="Go back" delay={3000}>
-                    <Button isIconOnly size="sm" variant="flat" onPress={() => paginate(-1)}>
+                    <Button
+                      isIconOnly
+                      size="sm"
+                      variant="flat"
+                      onPress={() => paginate(-1)}
+                    >
                       <Icon
                         className="text-default-500"
                         icon="solar:alt-arrow-left-linear"
@@ -143,7 +177,7 @@ export default function Component() {
               custom={direction}
               exit="exit"
               initial="enter"
-              transition={{duration: 0.2}}
+              transition={{ duration: 0.2 }}
               variants={variants}
               onSubmit={handleSubmit}
             >
@@ -197,7 +231,10 @@ export default function Component() {
                   autoFocus
                   isRequired
                   endContent={
-                    <button type="button" onClick={toggleConfirmPasswordVisibility}>
+                    <button
+                      type="button"
+                      onClick={toggleConfirmPasswordVisibility}
+                    >
                       {isConfirmPasswordVisible ? (
                         <Icon
                           className="pointer-events-none text-2xl text-default-400"
@@ -211,7 +248,11 @@ export default function Component() {
                       )}
                     </button>
                   }
-                  errorMessage={!isConfirmPasswordValid ? "Passwords do not match" : undefined}
+                  errorMessage={
+                    !isConfirmPasswordValid
+                      ? "Passwords do not match"
+                      : undefined
+                  }
                   label="Confirm Password"
                   name="confirmPassword"
                   type={isConfirmPasswordVisible ? "text" : "password"}
@@ -227,8 +268,8 @@ export default function Component() {
                 {page === 0
                   ? "Continue with Email"
                   : page === 1
-                    ? "Enter Password"
-                    : "Confirm Password"}
+                  ? "Enter Password"
+                  : "Confirm Password"}
               </Button>
             </m.form>
           </AnimatePresence>

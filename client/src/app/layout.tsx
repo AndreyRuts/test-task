@@ -1,5 +1,9 @@
+"use client";
+
 import "./globals.css";
 import Nav from "@/components/Navigation";
+import { NextUIProvider } from "@nextui-org/react";
+import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({
   children,
@@ -7,14 +11,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <main>
-          <div>
+    <html lang="en" className="dark">
+      <body className="bg-[#121212] text-white">
+        <NextUIProvider>
+          <main>
             <Nav />
-          </div>
-          {children}
-        </main>
+            {children}
+          </main>
+          <Toaster position="top-right" />
+        </NextUIProvider>
       </body>
     </html>
   );
