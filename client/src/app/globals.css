@@ -42,3 +42,7 @@ a {
     color-scheme: dark;
   }
 }
+
+.border-gradient {
+  border-image: linear-gradient(to right, #8a2be2, #ff1493) 1;
+}

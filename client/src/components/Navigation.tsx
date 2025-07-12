@@ -1,29 +1,21 @@
-"use client";
+import NavLink from "./NavLink";
 
-import { Navbar, NavbarContent, NavbarItem, Link } from "@nextui-org/react";
-
-export default function Navigation() {
+export default function CenteredNavbar() {
   return (
-    <>
-      <Navbar>
-        <NavbarContent className="">
-          <NavbarItem>
-            <Link color="foreground" href="/audio">
-              Audio
-            </Link>
-          </NavbarItem>
-          <NavbarItem isActive>
-            <Link aria-current="page" href="/form">
-              Form
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link color="foreground" href="/stock">
-              Stock
-            </Link>
-          </NavbarItem>
-        </NavbarContent>
-      </Navbar>
-    </>
+    <div className="flex justify-center absolute top-[166px] w-full z-50">
+      <div
+        className="relative w-[300px] h-[35px] rounded-xl"
+        style={{
+          background: "linear-gradient(to right, #FF1CF7, #00F0FF)",
+          padding: "2px",
+        }}
+      >
+        <div className="w-full h-full rounded-xl flex overflow-hidden">
+          <NavLink name="audio" href="/audio" position="left" />
+          <NavLink name="form" href="/form" position="center" />
+          <NavLink name="stock" href="/stock" position="right" />
+        </div>
+      </div>
+    </div>
   );
 }

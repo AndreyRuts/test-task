@@ -7,8 +7,10 @@ const AudioSection = dynamic(() => import("@/components/AudioSection"), {
 
 export default function Page() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#121212]">
-      <AudioSection />
+    <div className="relative min-h-screen bg-[#121212]">
+      <div className="absolute top-[297px] left-1/2 -translate-x-1/2">
+        <AudioSection />
+      </div>
     </div>
   );
 }
