@@ -4,6 +4,7 @@ import sensible from '@fastify/sensible';
 import websocketPlugin from '@fastify/websocket';
 
 import authRouter from './routes/auth.routes.js';
+import stockRoutes from './routes/stock.routes.js';
 import { getEnvVar } from './utils/getEnvVar.js';
 import { initMongoConnection } from './plugins/db.js';
 import wsPlugin from './plugins/websocket.js';
@@ -19,6 +20,7 @@ await app.register(websocketPlugin);
 await app.register(wsPlugin);
 
 await app.register(authRouter, { prefix: '/auth' });
+await app.register(stockRoutes);
 
 app.listen({ port: PORT }, err => {
   if (err) app.log.error(err);
