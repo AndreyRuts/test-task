@@ -9,20 +9,27 @@ export const getStocksService = async ({ symbol, country, page = 1, limit = 10 }
   const symbols = await symbolsRes.json();
 
   let filtered = symbols;
+
   if (symbol) {
     filtered = filtered.filter(item =>
       item.symbol.toLowerCase().includes(symbol.toLowerCase())
     );
   }
+
   if (country) {
     filtered = filtered.filter(item =>
       item.mic?.toLowerCase().includes(country.toLowerCase())
     );
   }
 
+  // 2. Подсчёт общего количества ДО пагинации
+  const total = filtered.length;
+
+  // 3. Пагинация
   const start = (page - 1) * limit;
   const paginated = filtered.slice(start, start + limit);
 
+  // 4. Фетчим данные по каждому символу
   const results = await Promise.all(
     paginated.map(async (item) => {
       try {
@@ -63,5 +70,9 @@ export const getStocksService = async ({ symbol, country, page = 1, limit = 10 }
     })
   );
 
-  return results;
+  // 5. Возвращаем данные + total
+  return {
+    data: results,
+    total,
+  };
 };
