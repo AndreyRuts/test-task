@@ -6,7 +6,7 @@ import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
 import { Icon } from "@iconify/react";
 import toast from "react-hot-toast";
 import { AxiosError } from "axios";
-import { signUpUser } from "@/lib/api/auth/signup";
+import { signUpUser } from "@/lib/api/signup";
 
 export default function Component() {
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);

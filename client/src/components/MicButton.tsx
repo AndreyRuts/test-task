@@ -19,14 +19,6 @@ const MicButton: React.FC<MicButtonProps> = ({ isRecording, onClick }) => {
   }, [isRecording]);
 
   return (
-    // <div
-    //   className={`rounded-full p-4 cursor-pointer transition-colors duration-300 ${
-    //     isRecording ? "bg-red-600" : "bg-purple-600"
-    //   }`}
-    //   onClick={onClick}
-    // >
-
-    // </div>
     <Lottie
       lottieRef={lottieRef}
       animationData={voiceAnimation}

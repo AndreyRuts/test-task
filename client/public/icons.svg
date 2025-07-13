@@ -1,0 +1,9 @@
+<!-- public/icons.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+  <symbol id="arrow-left" viewBox="0 0 7 11" fill="none">
+    <path d="M1.7347 1.29227L6.13232 5.6899L1.7347 10.0875" stroke="#D6D6D7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  </symbol>
+  <symbol id="arrow-right" viewBox="0 0 7 11" fill="none">
+    <path d="M5.2653 1.29227L0.86768 5.6899L5.2653 10.0875" stroke="#D6D6D7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  </symbol>
+</svg>

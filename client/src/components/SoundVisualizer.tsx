@@ -50,7 +50,7 @@ export const SoundVisualizer = ({ isActive }: SoundVisualizerProps) => {
     >
       {({ canvasRef }) => (
         <div className="flex justify-center mt-6">
-          <canvas ref={canvasRef} width={170} height={60} />
+          <canvas ref={canvasRef} width={280} height={60} />
         </div>
       )}
     </Visualizer>
