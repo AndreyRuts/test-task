@@ -7,9 +7,9 @@ export class WebmToPCMDecoder extends Transform {
 
     this.demuxer = new prism.opus.WebmDemuxer();
     this.decoder = new prism.opus.Decoder({
-      rate: 24000,
+      rate: 16000,
       channels: 1,
-      frameSize: 960,
+      frameSize: 320,
     });
 
     // Pipe demuxer to decoder
