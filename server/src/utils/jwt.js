@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+
 import { getEnvVar } from './getEnvVar.js';
 
 const JWT_SECRET = getEnvVar('JWT_SECRET', 'dev_secret');

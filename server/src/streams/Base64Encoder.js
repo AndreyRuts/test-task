@@ -1,4 +1,3 @@
-// server/src/streams/Base64Encoder.js
 import { Transform } from 'stream';
 
 export class Base64Encoder extends Transform {

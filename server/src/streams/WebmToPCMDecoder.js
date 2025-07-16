@@ -12,10 +12,8 @@ export class WebmToPCMDecoder extends Transform {
       frameSize: 320,
     });
 
-    // Pipe demuxer to decoder
     this.demuxer.pipe(this.decoder);
 
-    // Когда decoder выдаёт данные, пушим дальше
     this.decoder.on('data', (chunk) => {
       const canContinue = this.push(chunk);
       if (!canContinue) {
@@ -23,12 +21,10 @@ export class WebmToPCMDecoder extends Transform {
       }
     });
 
-    // Если у нашего Transform поток пустеет — возобновляем декодер
     this.on('drain', () => {
       this.decoder.resume();
     });
 
-    // Пробрасываем ошибки
     this.demuxer.on('error', (err) => this.emit('error', err));
     this.decoder.on('error', (err) => this.emit('error', err));
   }

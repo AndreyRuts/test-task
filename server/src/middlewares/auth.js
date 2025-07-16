@@ -1,4 +1,5 @@
 import createHttpError from 'http-errors';
+
 import { verifyToken } from '../utils/jwt.js';
 import { User } from '../models/User.js';
 

@@ -3,8 +3,8 @@ import { Transform } from 'stream';
 export class RawDataToBuffer extends Transform {
   constructor() {
     super({
-      writableObjectMode: true,  // принимает объекты (например, сообщения ws)
-      readableObjectMode: false, // выдаёт Buffer
+      writableObjectMode: true,
+      readableObjectMode: false,
     });
   }
 

@@ -7,7 +7,6 @@ import stockRoutes from './routes/stock.routes.js';
 import { getEnvVar } from './utils/getEnvVar.js';
 import { initMongoConnection } from './plugins/db.js';
 import { initWSS } from './plugins/wsRealtime.js';
-// import { initWSS } from './plugins/wsCripple.js';
 
 const PORT = Number(getEnvVar('PORT', '5000'));
 const app = Fastify({ logger: true });
@@ -22,11 +21,8 @@ await app.register(stockRoutes);
 await app.listen({ port: PORT });
 app.log.info(`🚀  Server ready on http://localhost:${PORT}`);
 
-// Здесь берем нативный Node.js HTTP сервер из Fastify
 const server = app.server;
 
-// Инициализируем WebSocket сервер поверх нативного HTTP сервера
-// initWSS(server, app.log);
 initWSS(server, app.log);
 
 
