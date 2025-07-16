@@ -22,8 +22,8 @@ export interface StockFilters {
 interface StockApiResponse {
   status: number;
   message: string;
-  data: Stock[];         // Массив акций
-  total: number;         // Общее количество
+  data: Stock[];
+  total: number;
 }
 
 export const fetchStocks = async (
